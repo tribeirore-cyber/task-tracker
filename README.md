@@ -1,47 +1,53 @@
-# Task Tracker Project
+# Task Tracker API
 
-Este é um simples aplicativo de linha de comando para gerenciar uma lista de tarefas.
+This project is a simple RESTful API for managing tasks, built with Spring Boot.
 
-## Funcionalidades Atuais
+## Current Endpoint
 
-*   **Adicionar Tarefa**: Adiciona uma nova tarefa à lista.
-*   **Atualizar Tarefa**: Atualiza o status de uma tarefa existente (atualmente, define como "in-progress").
-*   **Remover Tarefa**: Remove uma tarefa da lista usando seu ID.
+*   **`POST /tasks`**: Adds a new task to the system. It expects a JSON payload representing the task (e.g., `{"description": "My new task"}`) and returns the created task object, including its generated ID and timestamps.
 
-## Como Usar
+## How to Run
 
-### Pré-requisitos
+### Prerequisites
 
-*   JDK (Java Development Kit) instalado
-*   Maven (para build)
+*   JDK (Java Development Kit) installed (version 17 or higher recommended)
+*   Maven installed
 
-### Compilar e Executar
+### Compile and Run
 
-1.  Clone o repositório:
+1.  Clone the repository:
     ```bash
     git clone [URL_DO_SEU_REPOSITORIO]
     cd task-tracker
     ```
-2.  Compile o projeto usando Maven:
+2.  Compile the project using Maven:
     ```bash
     mvn clean install
     ```
-3.  Execute o aplicativo:
+3.  Run the Spring Boot application:
     ```bash
     java -jar target/task-tracker-1.0-SNAPSHOT.jar
     ```
+    (Note: The JAR file name might vary slightly depending on your project version and packaging. Use `mvn package` to be sure, or check the `target/` directory after `mvn install`.)
 
-### Comandos Disponíveis (dentro do aplicativo)
+### Making a Request
 
-*   `add <descrição da tarefa>`: Adiciona uma nova tarefa. Ex: `add "Estudar Java"`
-*   `update`: Solicita o ID da tarefa para atualizar (define como "in-progress").
-*   `delete <id da tarefa>`: Remove uma tarefa pelo ID. Ex: `delete 1`
-*   `exit`: Sai do aplicativo.
+You can use `curl` or any other HTTP client to interact with the API.
 
-## Próximos Passos (Melhorias Futuras)
+**Example: Adding a new task**
 
-*   Implementar funcionalidade de listagem de tarefas.
-*   Tratamento de erros mais robusto para entrada do usuário.
-*   Melhorar a funcionalidade de atualização de tarefas (permitir alterar descrição, status para "concluído").
-*   Utilizar Enums para o status da tarefa.
-*   Separar a lógica de negócios da interface do usuário.
+```bash
+curl -X POST http://localhost:8080/tasks \
+-H "Content-Type: application/json" \
+-d '{"description": "Learn Spring Boot"}'
+```
+
+This command will send a POST request to `http://localhost:8080/tasks` with a JSON body containing the task description. The API will respond with the created task object.
+
+## Future Improvements
+
+*   Implement task listing, updating, and deletion endpoints.
+*   Robust error handling for user input and API requests.
+*   Persist tasks to a database.
+*   Use Enums for task status.
+*   Separate business logic from the controller.

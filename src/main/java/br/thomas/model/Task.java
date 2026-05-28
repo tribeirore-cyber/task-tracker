@@ -1,8 +1,8 @@
-package br.thomas;
+package br.thomas.model;
 
 import java.time.LocalDateTime;
 
-class Task {
+public class Task {
 
     private static int idCounter = 0;
 

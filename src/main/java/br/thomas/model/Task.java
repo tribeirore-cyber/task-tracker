@@ -1,63 +1,83 @@
 package br.thomas.model;
 
+import jakarta.persistence.Entity; // Use jakarta.persistence para Spring Boot 3+
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Column;
+
 import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "tasks")
 public class Task {
 
-    private static int idCounter = 0;
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(nullable = false)
     private String description;
+
+    @Column(nullable = false, columnDefinition = "VARCHAR(50) DEFAULT 'todo'")
     private String status;
+
+    @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
+
+    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    public Task(){
-        this.id = ++idCounter;
-        this.createdAt = LocalDateTime.now();
+    public Task() {
+    }
+
+    public Task(String description) {
+        this.description = description;
         this.status = "todo";
+        this.createdAt = LocalDateTime.now();
     }
 
-
-    public void setId(int id){
-        this.id = id;
+    public int getId() {
+        return id;
     }
 
-    public int getId(){
-        return this.id;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescription(String description){
+    public void setDescription(String description) {
         this.description = description;
     }
 
-    public String getDescription(){
-        return this.description;
+    public String getStatus() {
+        return status;
     }
 
-    public void setStatus(String status){
+    public void setStatus(String status) {
         this.status = status;
     }
 
-    public String getStatus(){
-        return this.status;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public LocalDateTime getCreatedAt(){
-        return this.createdAt;
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setUpdateAt(LocalDateTime updatedAt){
+    public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 
-    public LocalDateTime getUpdateAt(){
-        return this.updatedAt;
-    }
-
     @Override
-    public String toString(){
-        return this.description + " - " + this.status;
+    public String toString() {
+        return "Task{" +
+               "id=" + id +
+               ", description='" + description + '\'' +
+               ", status='" + status + '\'' +
+               ", createdAt=" + createdAt +
+               ", updatedAt=" + updatedAt +
+               '}';
     }
-  
 }

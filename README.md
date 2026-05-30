@@ -2,52 +2,57 @@
 
 This project is a simple RESTful API for managing tasks, built with Spring Boot.
 
-## Current Endpoint
+## Endpoints
 
-*   **`POST /tasks`**: Adds a new task to the system. It expects a JSON payload representing the task (e.g., `{"description": "My new task"}`) and returns the created task object, including its generated ID and timestamps.
+- **`POST /tasks`**: Adds a new task to the system. Expects a JSON payload with the task description and returns the created task object, including its generated ID and timestamps.
+
+- **`GET /tasks/list`**: Returns a list of all tasks stored in the database.
 
 ## How to Run
 
 ### Prerequisites
 
-*   JDK (Java Development Kit) installed (version 17 or higher recommended)
-*   Maven installed
+- JDK 17 or higher
+- Maven installed
+- Docker installed
 
-### Compile and Run
+### 1. Start the database
 
-1.  Clone the repository:
-    ```bash
-    git clone [URL_DO_SEU_REPOSITORIO]
-    cd task-tracker
-    ```
-2.  Compile the project using Maven:
-    ```bash
-    mvn clean install
-    ```
-3.  Run the Spring Boot application:
-    ```bash
-    java -jar target/task-tracker-1.0-SNAPSHOT.jar
-    ```
-    (Note: The JAR file name might vary slightly depending on your project version and packaging. Use `mvn package` to be sure, or check the `target/` directory after `mvn install`.)
+The project uses Docker to run a PostgreSQL instance locally. Start the database container with:
 
-### Making a Request
+```bash
+docker compose up -d
+```
 
-You can use `curl` or any other HTTP client to interact with the API.
+### 2. Run the application
 
-**Example: Adding a new task**
+With the database running, start the Spring Boot application:
+
+```bash
+mvn spring-boot:run
+```
+
+The API will be available at `http://localhost:8080`.
+
+### Making Requests
+
+**Adding a new task:**
 
 ```bash
 curl -X POST http://localhost:8080/tasks \
--H "Content-Type: application/json" \
--d '{"description": "Learn Spring Boot"}'
+  -H "Content-Type: application/json" \
+  -d '{"description": "Learn Spring Boot"}'
 ```
 
-This command will send a POST request to `http://localhost:8080/tasks` with a JSON body containing the task description. The API will respond with the created task object.
+**Listing all tasks:**
+
+```bash
+curl http://localhost:8080/tasks/list
+```
 
 ## Future Improvements
 
-*   Implement task listing, updating, and deletion endpoints.
-*   Robust error handling for user input and API requests.
-*   Persist tasks to a database.
-*   Use Enums for task status.
-*   Separate business logic from the controller.
+- Implement task updating and deletion endpoints.
+- Robust error handling for user input and API requests.
+- Use Enums for task status.
+- Separate business logic from the controller.

@@ -2,37 +2,16 @@ version: '3.8'
 
 services:
   db:
-    image: postgres:15 # Use a specific version of PostgreSQL
+    image: postgres:15
     container_name: postgres_task_tracker_db
     environment:
       POSTGRES_DB: taskdb
       POSTGRES_USER: taskuser
       POSTGRES_PASSWORD: taskpassword
     ports:
-      - "5432:5432" # Maps container's port 5432 to host's port 5432
+      - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data # Persists PostgreSQL database data
-    networks:
-      - task-network
-
-  app:
-    build: . # Tells Docker Compose to build the image using the Dockerfile in the root directory
-    container_name: task_tracker_app
-    ports:
-      - "8080:8080" # Maps the application's port 8080 to the host's port 8080
-    depends_on:
-      - db # Ensures the database container starts before the application container
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/taskdb
-      SPRING_DATASOURCE_USERNAME: taskuser
-      SPRING_DATASOURCE_PASSWORD: taskpassword
-      SPRING_JPA_HIBERNATE_DDL_AUTO: update # Automatically updates the database schema
-    networks:
-      - task-network
+      - postgres_data:/var/lib/postgresql/data
 
 volumes:
-  postgres_data: # Defines the named volume for PostgreSQL data persistence
-
-networks:
-  task-network:
-    driver: bridge
+  postgres_data:

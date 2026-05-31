@@ -35,8 +35,8 @@ public class TaskController {
         return ResponseEntity.ok(tasks);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Task> updateTask(@PathVariable long id, @RequestBody Task taskDetails) {
+    @PutMapping("/{id}") // O ID da tarefa será parte da URL, ex: /tasks/1
+    public ResponseEntity<Task> updateTask(@PathVariable("id") long id, @RequestBody Task taskDetails) {
         Optional<Task> existingTaskOptional = repository.findById(id);
         if (existingTaskOptional.isEmpty()) {
             return ResponseEntity.notFound().build();

@@ -43,7 +43,10 @@ The API will be available at `http://localhost:8080`.
 ```bash
 curl -X POST http://localhost:8080/tasks \
   -H "Content-Type: application/json" \
-  -d '{"description": "Learn Spring Boot"}'
+  -d '{
+    "description": "Learn Spring Boot", 
+    "status": "todo"
+  }'
 ```
 
 **Listing all tasks:**

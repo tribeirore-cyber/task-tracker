@@ -8,6 +8,8 @@ This project is a simple RESTful API for managing tasks, built with Spring Boot.
 
 - **`GET /tasks/list`**: Returns a list of all tasks stored in the database.
 
+- **`PUT /tasks/{id}`**: Updates an existing task identified by its ID. Expects the task ID in the URL path and a JSON payload with the updated fields (e.g., `description`, `status`). Returns the updated task object.
+
 ## How to Run
 
 ### Prerequisites
@@ -50,9 +52,19 @@ curl -X POST http://localhost:8080/tasks \
 curl http://localhost:8080/tasks/list
 ```
 
+**Updating an existing task (e.g., task with ID 1):**
+```bash
+curl -X PUT http://localhost:8080/tasks/1 \
+  -H "Content-Type: application/json" \
+  -d '{
+    "description": "Master Docker Compose basics",
+    "status": "in-progress"
+  }'
+```
+
 ## Future Improvements
 
-- Implement task updating and deletion endpoints.
+- Implement task deletion endpoint.
 - Robust error handling for user input and API requests.
 - Use Enums for task status.
 - Separate business logic from the controller.

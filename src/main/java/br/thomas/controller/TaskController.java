@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.DeleteMapping;
 
 @RestController
 @RequestMapping("/tasks")
@@ -47,5 +48,16 @@ public class TaskController {
         existingTask.setUpdatedAt(LocalDateTime.now());
         Task updatedTask = repository.save(existingTask);
         return ResponseEntity.ok(updatedTask);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Task> deleteTask(@PathVariable("id") long id) {
+        Optional<Task> existingTaskOptional = repository.findById(id);
+        if (existingTaskOptional.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        Task taskToRemove = existingTaskOptional.get();
+        repository.delete(taskToRemove);
+        return ResponseEntity.ok(taskToRemove);
     }
 }

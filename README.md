@@ -10,6 +10,8 @@ This project is a simple RESTful API for managing tasks, built with Spring Boot.
 
 - **`PUT /tasks/{id}`**: Updates an existing task identified by its ID. Expects the task ID in the URL path and a JSON payload with the updated fields (e.g., `description`, `status`). Returns the updated task object.
 
+- **`DELETE /tasks/{id}`**: Deletes an existing task identified by its ID. Returns the deleted task object.
+
 ## How to Run
 
 ### Prerequisites
@@ -65,9 +67,13 @@ curl -X PUT http://localhost:8080/tasks/1 \
   }'
 ```
 
+**Deleting an existing task (e.g., task with ID 1):**
+```bash
+curl -X DELETE http://localhost:8080/tasks/1
+```
+
 ## Future Improvements
 
-- Implement task deletion endpoint.
 - Robust error handling for user input and API requests.
 - Use Enums for task status.
 - Separate business logic from the controller.

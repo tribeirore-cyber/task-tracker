@@ -1,4 +1,4 @@
-package br.thomas.model;
+package br.thomas.domain;
 
 import jakarta.persistence.Entity; // Use jakarta.persistence para Spring Boot 3+
 import jakarta.persistence.GeneratedValue;
@@ -15,7 +15,7 @@ public class Task {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(nullable = false)
     private String description;
@@ -38,7 +38,7 @@ public class Task {
         this.createdAt = LocalDateTime.now();
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
